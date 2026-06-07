@@ -9,17 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python
+      - name: تثبيت بايثون
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install requests
+      - name: تثبيت المتطلبات
         run: pip install requests
-      - name: Fetch proxies
+      - name: جلب البروكسيات
         run: python get_proxies.py
-      - name: Run brute
+      - name: تشغيل البحث
         run: python fb_phone_brute.py
-      - name: Upload found
+      - name: رفع النتيجة
         uses: actions/upload-artifact@v4
         with:
           name: found_phone
