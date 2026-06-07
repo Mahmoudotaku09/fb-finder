@@ -1,0 +1,26 @@
+name: FB Phone Brute
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */8 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install requests
+        run: pip install requests
+      - name: Fetch proxies
+        run: python get_proxies.py
+      - name: Run brute
+        run: python fb_phone_brute.py
+      - name: Upload found
+        uses: actions/upload-artifact@v4
+        with:
+          name: found_phone
+          path: found.txt
