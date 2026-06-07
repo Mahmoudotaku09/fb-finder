@@ -1,4 +1,4 @@
-name: تشغيل البحث عن رقم الهاتف
+name: FB Phone Brute
 on:
   workflow_dispatch:
   schedule:
@@ -9,16 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: تثبيت بايثون
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: جلب البروكسيات
+      - name: Install requests
+        run: pip install requests
+      - name: Fetch proxies
         run: python get_proxies.py
-      - name: تشغيل البحث
+      - name: Run brute
         run: python fb_phone_brute.py
-      - name: رفع النتيجة
+      - name: Upload found
         uses: actions/upload-artifact@v4
         with:
-          name: نتيجة
+          name: found_phone
           path: found.txt
